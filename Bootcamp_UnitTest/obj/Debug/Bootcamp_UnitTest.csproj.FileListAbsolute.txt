@@ -1,7 +1,0 @@
-c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\bin\Debug\Bootcamp_UnitTest.dll
-c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\bin\Debug\Bootcamp_UnitTest.pdb
-c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\obj\Debug\Bootcamp_UnitTest.csprojResolveAssemblyReference.cache
-c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\obj\Debug\Bootcamp_UnitTest.dll
-c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\obj\Debug\Bootcamp_UnitTest.pdb
-C:\Users\twer\Documents\Visual Studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\bin\Debug\Bootcamp_session1.exe
-C:\Users\twer\Documents\Visual Studio 2012\Projects\Bootcamp_session1\Bootcamp_UnitTest\bin\Debug\Bootcamp_session1.pdb
