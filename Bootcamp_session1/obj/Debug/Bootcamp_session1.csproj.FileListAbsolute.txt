@@ -1,0 +1,8 @@
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\bin\Debug\Bootcamp_session1.exe.config
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\bin\Debug\Bootcamp_session1.exe
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\bin\Debug\Bootcamp_session1.pdb
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\bin\Debug\nunit.framework.dll
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\bin\Debug\nunit.framework.xml
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\obj\Debug\Bootcamp_session1.csprojResolveAssemblyReference.cache
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\obj\Debug\Bootcamp_session1.exe
+c:\users\twer\documents\visual studio 2012\Projects\Bootcamp_session1\Bootcamp_session1\obj\Debug\Bootcamp_session1.pdb
