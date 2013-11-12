@@ -17,6 +17,22 @@ namespace SuperMarket
             _count = count;
         }
 
+        public int LeftCapacity
+        {
+            get
+            {
+                return _count - _bagsList.Count;
+            }
+        }
+
+        public float EmptyRatio
+        {
+            get
+            {
+                return (float)LeftCapacity/_count;
+            }
+        }
+
         public Ticket Store(Bag bag)
         {
             if (_bagsList.Count >= _count) return null;

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using NUnit.Framework;
 using SuperMarket;
@@ -116,6 +119,113 @@ namespace SuperMarketTest
             var ticket = robot.Store(bag);
 
             Assert.AreSame(robot.Pick(ticket), bag);
+        }
+
+        [Test]
+        public void should_get_left_capacity_from_locker()
+        {
+            var locker = new Locker(5);
+            locker.Store(new Bag());
+
+            Assert.AreEqual(4, locker.LeftCapacity);
+        }
+
+        [Test]
+        public void shoud_store_bag_in_the_locker_which_has_lagest_capacity()
+        {
+            var lockers = new List<Locker>();
+            var locker = new Locker(2);
+            locker.Store(new Bag());
+            lockers.Add(locker);
+            var secondLocker = new Locker(2);
+            lockers.Add(secondLocker);
+
+            var robot = new SmartRobot(lockers);
+            var bag = new Bag();
+            var ticket = robot.Store(bag);
+
+            Assert.AreSame(bag, secondLocker.Pick(ticket));
+        }
+
+        [Test]
+        public void should_return_the_bag_stored_in_smartrobot_by_the_ticket()
+        {
+            var lockers = new List<Locker>();
+            var locker = new Locker(1);
+            lockers.Add(locker);
+
+            var robot = new SmartRobot(lockers);
+            var bag = new Bag();
+            var ticket = robot.Store(bag);
+
+            Assert.AreSame(robot.Pick(ticket), bag);
+        }
+
+        [Test]
+        public void shoud_store_bag_in_the_locker_which_has_lagest_empty_ratio()
+        {
+            var lockerList = new List<Locker>();
+
+            var smallEmptyRatioLocker = new Locker(6);
+            smallEmptyRatioLocker.Store(new Bag());
+            smallEmptyRatioLocker.Store(new Bag());
+            smallEmptyRatioLocker.Store(new Bag());
+            smallEmptyRatioLocker.Store(new Bag());
+
+
+            var largerEmptyRatioLocker = new Locker(2);
+            largerEmptyRatioLocker.Store(new Bag());
+
+            lockerList.Add(smallEmptyRatioLocker);
+            lockerList.Add(largerEmptyRatioLocker);
+
+            var robot = new EmptyRatioRobot(lockerList);
+            var bag = new Bag();
+            var ticket = robot.Store(bag);
+
+            Assert.AreSame(bag, largerEmptyRatioLocker.Pick(ticket));
+        }
+
+//        [Test]
+//        public void should_throw_excption_when_robot_have_no_locker()
+//        {
+//            var robot = new SmartRobot(null);
+//            try
+//            {
+//                robot.Store(new Bag());
+//            }
+//            catch (NullReferenceException e)
+//            {
+//                Assert.True(true);
+//            }
+//        }
+
+
+    }
+
+    public class EmptyRatioRobot : Robot
+    {
+        public EmptyRatioRobot(List<Locker> lockerList)
+            : base(lockerList)
+        {
+        }
+
+        public override Ticket Store(Bag bag)
+        {
+            return _lockerList.First(x => x.EmptyRatio == _lockerList.Max(y => y.EmptyRatio)).Store(bag);
+        }
+    }
+
+    public class SmartRobot : Robot
+    {
+        public SmartRobot(IList<Locker> lockers) : base(lockers)
+        {
+
+        }
+
+        public override Ticket Store(Bag bag)
+        {
+            return _lockerList.First(x => x.LeftCapacity == _lockerList.Max(y => y.LeftCapacity)).Store(bag);
         }
     }
 }

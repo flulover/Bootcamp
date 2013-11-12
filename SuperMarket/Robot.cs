@@ -5,14 +5,14 @@ namespace SuperMarket
 {
     public class Robot
     {
-        private readonly IList<Locker> _lockerList;
+        protected readonly IList<Locker> _lockerList;
 
         public Robot(IList<Locker> lockerList)
         {
             _lockerList = lockerList;
         }
 
-        public Ticket Store(Bag bag)
+        public virtual Ticket Store(Bag bag)
         {
             return _lockerList.Select(locker => locker.Store(bag)).FirstOrDefault(ticket => ticket != null);
         }
