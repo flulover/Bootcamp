@@ -4,24 +4,24 @@ namespace SuperMarket
 {
     public class Locker
     {
-        private Dictionary<Ticket, Bag> _bagsList = new Dictionary<Ticket, Bag>();
-        private int _count;
+        private readonly Dictionary<Ticket, Bag> _bagsList = new Dictionary<Ticket, Bag>();
+        private readonly int _capacity;
 
         public Locker()
         {
-            _count = 10;
+            _capacity = 10;
         }
 
-        public Locker(int count)
+        public Locker(int capacity)
         {
-            _count = count;
+            _capacity = capacity;
         }
 
         public int LeftCapacity
         {
             get
             {
-                return _count - _bagsList.Count;
+                return _capacity - _bagsList.Count;
             }
         }
 
@@ -29,13 +29,13 @@ namespace SuperMarket
         {
             get
             {
-                return (float)LeftCapacity/_count;
+                return (float)LeftCapacity/_capacity;
             }
         }
 
         public Ticket Store(Bag bag)
         {
-            if (_bagsList.Count >= _count) return null;
+            if (_bagsList.Count >= _capacity) return null;
 
             var ticket = new Ticket();
             _bagsList.Add(ticket, bag);

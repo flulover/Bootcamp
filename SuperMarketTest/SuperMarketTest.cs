@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using NUnit.Framework;
 using SuperMarket;
+using SuperMarket.LockerStratagy;
 
 namespace SuperMarketTest
 {
@@ -70,7 +69,7 @@ namespace SuperMarketTest
             var locker = new Locker(1);
             lockers.Add(locker);
 
-            var robot = new Robot(lockers);
+            var robot = new Robot(lockers, new SequenceLockerStrategy());
             var bag = new Bag();
             var ticket = robot.Store(bag);
 
@@ -82,7 +81,7 @@ namespace SuperMarketTest
         {
             var lockers = new List<Locker> {new Locker(1)};
 
-            var robot = new Robot(lockers);
+            var robot = new Robot(lockers, new SequenceLockerStrategy());
             robot.Store(new Bag());
             var ticket = robot.Store(new Bag());
 
@@ -97,7 +96,7 @@ namespace SuperMarketTest
 
             var lockers = new List<Locker> {locker1, locker2};
 
-            var robot = new Robot(lockers);
+            var robot = new Robot(lockers, new SequenceLockerStrategy());
             var bag1 = new Bag();
             var bag2 = new Bag();
             var ticket1 = robot.Store(bag1);
@@ -114,7 +113,7 @@ namespace SuperMarketTest
             var locker = new Locker(1);
             lockers.Add(locker);
 
-            var robot = new Robot(lockers);
+            var robot = new Robot(lockers, new SequenceLockerStrategy());
             var bag = new Bag();
             var ticket = robot.Store(bag);
 
@@ -184,48 +183,6 @@ namespace SuperMarketTest
             var ticket = robot.Store(bag);
 
             Assert.AreSame(bag, largerEmptyRatioLocker.Pick(ticket));
-        }
-
-//        [Test]
-//        public void should_throw_excption_when_robot_have_no_locker()
-//        {
-//            var robot = new SmartRobot(null);
-//            try
-//            {
-//                robot.Store(new Bag());
-//            }
-//            catch (NullReferenceException e)
-//            {
-//                Assert.True(true);
-//            }
-//        }
-
-
-    }
-
-    public class EmptyRatioRobot : Robot
-    {
-        public EmptyRatioRobot(List<Locker> lockerList)
-            : base(lockerList)
-        {
-        }
-
-        public override Ticket Store(Bag bag)
-        {
-            return _lockerList.First(x => x.EmptyRatio == _lockerList.Max(y => y.EmptyRatio)).Store(bag);
-        }
-    }
-
-    public class SmartRobot : Robot
-    {
-        public SmartRobot(IList<Locker> lockers) : base(lockers)
-        {
-
-        }
-
-        public override Ticket Store(Bag bag)
-        {
-            return _lockerList.First(x => x.LeftCapacity == _lockerList.Max(y => y.LeftCapacity)).Store(bag);
         }
     }
 }

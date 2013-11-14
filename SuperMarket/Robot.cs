@@ -1,25 +1,32 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using SuperMarket.LockerStratagy;
 
 namespace SuperMarket
 {
     public class Robot
     {
-        protected readonly IList<Locker> _lockerList;
+        protected readonly IList<Locker> LockerList;
+        protected readonly IGetStoreLockerStrategy GetLockerStrategy;
 
-        public Robot(IList<Locker> lockerList)
+        public Robot(IList<Locker> lockerList, IGetStoreLockerStrategy getStoreLockerStrategy)
         {
-            _lockerList = lockerList;
+            LockerList = lockerList;
+            GetLockerStrategy = getStoreLockerStrategy;
         }
 
         public virtual Ticket Store(Bag bag)
         {
-            return _lockerList.Select(locker => locker.Store(bag)).FirstOrDefault(ticket => ticket != null);
+            var locker = GetLockerStrategy.GetLocker(LockerList);
+            if (locker == null)
+                return null;
+
+            return locker.Store(bag);
         }
 
         public Bag Pick(Ticket ticket)
         {
-            foreach (var locker in _lockerList)
+            foreach (var locker in LockerList)
             {
                 var bag = locker.Pick(ticket);
                 if (bag != null)
