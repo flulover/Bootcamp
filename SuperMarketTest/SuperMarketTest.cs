@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
 using NUnit.Framework;
 using SuperMarket;
 
@@ -186,46 +182,11 @@ namespace SuperMarketTest
             Assert.AreSame(bag, largerEmptyRatioLocker.Pick(ticket));
         }
 
-//        [Test]
-//        public void should_throw_excption_when_robot_have_no_locker()
-//        {
-//            var robot = new SmartRobot(null);
-//            try
-//            {
-//                robot.Store(new Bag());
-//            }
-//            catch (NullReferenceException e)
-//            {
-//                Assert.True(true);
-//            }
-//        }
-
-
-    }
-
-    public class EmptyRatioRobot : Robot
-    {
-        public EmptyRatioRobot(List<Locker> lockerList)
-            : base(lockerList)
+        [Test]
+        public void should_throw_excption_when_robot_have_no_locker()
         {
-        }
-
-        public override Ticket Store(Bag bag)
-        {
-            return _lockerList.First(x => x.EmptyRatio == _lockerList.Max(y => y.EmptyRatio)).Store(bag);
-        }
-    }
-
-    public class SmartRobot : Robot
-    {
-        public SmartRobot(IList<Locker> lockers) : base(lockers)
-        {
-
-        }
-
-        public override Ticket Store(Bag bag)
-        {
-            return _lockerList.First(x => x.LeftCapacity == _lockerList.Max(y => y.LeftCapacity)).Store(bag);
+            var robot = new Robot(null);
+            Assert.Throws<ArgumentNullException>(() => robot.Store(new Bag()));
         }
     }
 }
