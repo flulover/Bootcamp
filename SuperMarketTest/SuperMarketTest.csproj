@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SuperMarketTest.cs" />
+    <Compile Include="RobotTest.cs" />
+    <Compile Include="LockerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartRobot.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperMarket\SuperMarket.csproj">
