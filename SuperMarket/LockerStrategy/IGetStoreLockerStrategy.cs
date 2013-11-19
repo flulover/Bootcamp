@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SuperMarket.LockerStratagy
+namespace SuperMarket.LockerStrategy
 {
     public interface IGetStoreLockerStrategy
     {

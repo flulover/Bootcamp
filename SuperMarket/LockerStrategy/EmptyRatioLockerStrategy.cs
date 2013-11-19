@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SuperMarket.LockerStratagy
+namespace SuperMarket.LockerStrategy
 {
     public class EmptyRatioLockerStrategy : IGetStoreLockerStrategy
     {

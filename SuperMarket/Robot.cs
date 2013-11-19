@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using SuperMarket.LockerStratagy;
+using SuperMarket.LockerStrategy;
 
 namespace SuperMarket
 {

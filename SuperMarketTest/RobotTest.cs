@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using SuperMarket;
-using SuperMarket.LockerStratagy;
 
 namespace SuperMarketTest
 {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SuperMarket.LockerStratagy;
+using SuperMarket.LockerStrategy;
 
 namespace SuperMarket
 {
