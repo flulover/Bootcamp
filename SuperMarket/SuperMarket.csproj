@@ -40,14 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bag.cs" />
-    <Compile Include="Locker.cs" />
+    <Compile Include="LockerStrategy\EmptyRatioLockerStrategy.cs" />
     <Compile Include="EmptyRatioRobot.cs" />
-    <Compile Include="LockerStratagy\EmptyRatioLockerStrategy.cs" />
-    <Compile Include="LockerStratagy\IGetStoreLockerStrategy.cs" />
-    <Compile Include="LockerStratagy\LeftCapacityLockerStrategy.cs" />
-    <Compile Include="LockerStratagy\SequenceLockerStrategy.cs" />
+    <Compile Include="LockerStrategy\IGetStoreLockerStrategy.cs" />
+    <Compile Include="LockerStrategy\LeftCapacityLockerStrategy.cs" />
+    <Compile Include="Locker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot.cs" />
+    <Compile Include="LockerStrategy\SequenceLockerStrategy.cs" />
     <Compile Include="SmartRobot.cs" />
     <Compile Include="Ticket.cs" />
   </ItemGroup>

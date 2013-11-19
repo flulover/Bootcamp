@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootcamp", "Bootcamp_session1\Bootcamp.csproj", "{126B1698-FF96-4E23-88FE-0E0912B3DE82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Length", "Bootcamp_session1\Length.csproj", "{126B1698-FF96-4E23-88FE-0E0912B3DE82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{7B281943-F864-4454-92A9-0E5A3235C1FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LengthTest", "UnitTest\LengthTest.csproj", "{7B281943-F864-4454-92A9-0E5A3235C1FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket", "SuperMarket\SuperMarket.csproj", "{8180F1AF-A928-46CB-82F4-DC4B4FF59466}"
 EndProject

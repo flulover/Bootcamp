@@ -9,10 +9,13 @@ namespace SuperMarket
         protected readonly IList<Locker> LockerList;
         protected readonly IGetStoreLockerStrategy GetLockerStrategy;
 
-        public Robot(IList<Locker> lockerList, IGetStoreLockerStrategy getStoreLockerStrategy)
+        public Robot(IList<Locker> lockerList, IGetStoreLockerStrategy getStoreLockerStrategy = null)
         {
             LockerList = lockerList;
-            GetLockerStrategy = getStoreLockerStrategy;
+            if (getStoreLockerStrategy == null)
+                GetLockerStrategy = new SequenceLockerStrategy(); 
+            else
+                GetLockerStrategy = getStoreLockerStrategy;
         }
 
         public virtual Ticket Store(Bag bag)
