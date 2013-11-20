@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using SuperMarket.LockerStrategy;
 
 namespace SuperMarket
 {
-    public class Robot
+    public class Robot : ILocker
     {
         protected readonly IList<Locker> LockerList;
         protected readonly IGetStoreLockerStrategy GetLockerStrategy;

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bag.cs" />
+    <Compile Include="ILocker.cs" />
     <Compile Include="LockerStrategy\EmptyRatioLockerStrategy.cs" />
     <Compile Include="EmptyRatioRobot.cs" />
     <Compile Include="LockerStrategy\IGetStoreLockerStrategy.cs" />

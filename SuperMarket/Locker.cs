@@ -2,7 +2,7 @@
 
 namespace SuperMarket
 {
-    public class Locker
+    public class Locker : ILocker
     {
         private readonly Dictionary<Ticket, Bag> _bagsList = new Dictionary<Ticket, Bag>();
         private readonly int _capacity;
