@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SuperMarket;
+using SuperMarket.LockerStrategy;
 
 namespace SuperMarketTest
 {
     [TestFixture]
-    class SmartRobot
+    class SmartRobotTest
     {
         [Test]
         public void shoud_store_bag_in_the_locker_used_robot_which_has_lagest_capacity()
@@ -17,7 +18,7 @@ namespace SuperMarketTest
             var secondLocker = new Locker(2);
             lockers.Add(secondLocker);
 
-            var robot = new SuperMarket.SmartRobot(lockers);
+            var robot = Robot.CreateSmartRobot(lockers);
             var bag = new Bag();
             var ticket = robot.Store(bag);
 
@@ -31,7 +32,7 @@ namespace SuperMarketTest
             var locker = new Locker(1);
             lockers.Add(locker);
 
-            var robot = new SuperMarket.SmartRobot(lockers);
+            var robot = Robot.CreateSmartRobot(lockers);
             var bag = new Bag();
             var ticket = robot.Store(bag);
 
@@ -56,7 +57,7 @@ namespace SuperMarketTest
             lockerList.Add(smallEmptyRatioLocker);
             lockerList.Add(largerEmptyRatioLocker);
 
-            var robot = new EmptyRatioRobot(lockerList);
+            var robot = Robot.CreateSuperSmartRobot(lockerList);
             var bag = new Bag();
             var ticket = robot.Store(bag);
 

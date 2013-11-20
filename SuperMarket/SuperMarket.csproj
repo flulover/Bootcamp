@@ -42,7 +42,6 @@
     <Compile Include="Bag.cs" />
     <Compile Include="ILocker.cs" />
     <Compile Include="LockerStrategy\EmptyRatioLockerStrategy.cs" />
-    <Compile Include="EmptyRatioRobot.cs" />
     <Compile Include="LockerStrategy\IGetStoreLockerStrategy.cs" />
     <Compile Include="LockerStrategy\LeftCapacityLockerStrategy.cs" />
     <Compile Include="Locker.cs" />
@@ -50,7 +49,6 @@
     <Compile Include="Robot.cs" />
     <Compile Include="LockerStrategy\SequenceLockerStrategy.cs" />
     <Compile Include="RobotManager.cs" />
-    <Compile Include="SmartRobot.cs" />
     <Compile Include="Ticket.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

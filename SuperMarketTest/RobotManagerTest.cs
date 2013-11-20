@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SuperMarket;
 using SuperMarket.LockerStrategy;
@@ -12,18 +11,13 @@ namespace SuperMarketTest
         [Test]
         public void should_store_bag_in_self_locker_when_self_locker_available()
         {
-            var sequenceLocker = new Locker(1);
             var selfLocker = new Locker(1);
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
-                new List<Robot>
-                {
-                    new Robot(new List<Locker>{sequenceLocker}, 
-                    new SequenceLockerStrategy())
-                }
+                null
             );
 
             var bag = new Bag();
@@ -38,40 +32,15 @@ namespace SuperMarketTest
         {
             var sequenceLocker = new Locker(1);
             var selfLocker = new Locker(0);
-            var robot = new Robot(new List<Locker> { sequenceLocker }, new SequenceLockerStrategy());
+            var smartRobot = Robot.CreateSmartRobot(new List<Locker> { sequenceLocker });
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
-                new List<Robot>
+                new List<ILocker>
                 {
-                    robot
-                }
-            );
-
-            var bag = new Bag();
-            var ticket = robotManager.Store(bag);
-
-            Assert.AreSame(bag, robot.Pick(ticket));
-        }
-
-        [Test]
-        public void should_store_bag_in_second_robot_when_self_locker_not_available_and_first_robot_not_available()
-        {
-            var selfLocker = new Locker(0);
-            var sequenceLocker = new Locker(0);
-            var capacityLocker = new Locker(1);
-            var robot = new Robot(new List<Locker>{sequenceLocker}, new SequenceLockerStrategy());
-            var smartRobot = new Robot(new List<Locker> { capacityLocker }, new LeftCapacityLockerStrategy());
-            var robotManager = new RobotManager(
-                new List<Locker>
-                {
-                    selfLocker
-                },
-                new List<Robot>
-                {
-                    robot, smartRobot
+                    smartRobot
                 }
             );
 
@@ -82,37 +51,62 @@ namespace SuperMarketTest
         }
 
         [Test]
-        public void should_store_bag_in_first_robot_when_two_robots_are_not_full()
+        public void should_store_bag_in_second_robot_when_self_locker_not_available_and_first_robot_not_available()
         {
             var selfLocker = new Locker(0);
-            var sequenceLocker = new Locker(1);
+            var sequenceLocker = new Locker(0);
             var capacityLocker = new Locker(1);
-            var robot = new Robot(new List<Locker> { sequenceLocker }, new SequenceLockerStrategy());
-            var smartRobot = new Robot(new List<Locker> { capacityLocker }, new LeftCapacityLockerStrategy());
+            var smartRobot = Robot.CreateSmartRobot(new List<Locker> { sequenceLocker });
+            var superSmartRobot = Robot.CreateSuperSmartRobot(new List<Locker> { capacityLocker });
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
-                new List<Robot>
+                new List<ILocker>
                 {
-                    robot, smartRobot
+                    smartRobot, superSmartRobot
                 }
             );
 
             var bag = new Bag();
             var ticket = robotManager.Store(bag);
 
-            Assert.AreSame(bag, robot.Pick(ticket));
-            Assert.IsNull(smartRobot.Pick(ticket));
+            Assert.AreSame(bag, superSmartRobot.Pick(ticket));
         }
 
         [Test]
-        public void should_throw_exception_when_locker_and_robot_are_both_null()
+        public void should_store_bag_in_first_robot_when_two_robots_are_not_full()
+        {
+            var selfLocker = new Locker(0);
+            var sequenceLocker = new Locker(1);
+            var capacityLocker = new Locker(1);
+            var smartRobot = Robot.CreateSmartRobot(new List<Locker> { sequenceLocker });
+            var superSmartRobot = Robot.CreateSuperSmartRobot(new List<Locker> { capacityLocker });
+            var robotManager = new RobotManager(
+                new List<ILocker>
+                {
+                    selfLocker
+                },
+                new List<ILocker>
+                {
+                    smartRobot, superSmartRobot
+                }
+            );
+
+            var bag = new Bag();
+            var ticket = robotManager.Store(bag);
+
+            Assert.AreSame(bag, smartRobot.Pick(ticket));
+            Assert.IsNull(superSmartRobot.Pick(ticket));
+        }
+
+        [Test]
+        public void should_return_null_when_locker_and_robot_are_both_null()
         {
             var robotManager = new RobotManager(null, null);
 
-            Assert.Throws<ArgumentNullException>(() => robotManager.Store(new Bag()));
+            Assert.IsNull(robotManager.Store(new Bag()));
         }
 
         [Test]
@@ -120,15 +114,15 @@ namespace SuperMarketTest
         {
             var sequenceLocker = new Locker(0);
             var selfLocker = new Locker(0);
-            var robot = new Robot(new List<Locker> { sequenceLocker }, new SequenceLockerStrategy());
+            var smartRobot = Robot.CreateSmartRobot(new List<Locker> { sequenceLocker });
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
-                new List<Robot>
+                new List<ILocker>
                 {
-                    robot
+                    smartRobot
                 }
             );
 
@@ -143,7 +137,7 @@ namespace SuperMarketTest
         {
             var selfLocker = new Locker(1);
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
@@ -153,7 +147,7 @@ namespace SuperMarketTest
             var bag = new Bag();
             var ticket = robotManager.Store(bag);
 
-            Assert.AreSame(bag, robotManager.Pick(ticket));
+            Assert.AreSame(bag, selfLocker.Pick(ticket));
         }
 
         [Test]
@@ -161,20 +155,20 @@ namespace SuperMarketTest
         {
             var sequenceLocker = new Locker(1);
             var selfLocker = new Locker(0);
-            var robot = new Robot(new List<Locker> { sequenceLocker }, new SequenceLockerStrategy());
+            var smartRobot = Robot.CreateSmartRobot(new List<Locker> { sequenceLocker });
             var robotManager = new RobotManager(
-                new List<Locker>
+                new List<ILocker>
                 {
                     selfLocker
                 },
-                new List<Robot>
+                new List<ILocker>
                 {
-                    robot
+                    smartRobot
                 }
             );
 
             var bag = new Bag();
-            var ticket = robotManager.Store(bag);
+            var ticket = sequenceLocker.Store(bag);
 
             Assert.AreSame(bag, robotManager.Pick(ticket));
         }

@@ -38,5 +38,15 @@ namespace SuperMarket
             }
             return null;
         }
+
+        public static Robot CreateSuperSmartRobot(List<Locker> lockerList)
+        {
+            return new Robot(lockerList, new EmptyRatioLockerStrategy());
+        }
+
+        public static Robot CreateSmartRobot(List<Locker> lockers)
+        {
+            return new Robot(lockers, new LeftCapacityLockerStrategy());
+        }
     }
 }

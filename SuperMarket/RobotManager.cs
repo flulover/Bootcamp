@@ -5,25 +5,28 @@ namespace SuperMarket
 {
     public class RobotManager
     {
-        private readonly List<Locker> _lockerList;
-        private readonly List<Robot> _robotList;
+        private readonly List<ILocker> _lockerList = new List<ILocker>();
 
-        public RobotManager(List<Locker> lockers, List<Robot> robots)
+        public RobotManager(IEnumerable<ILocker> lockers, IEnumerable<ILocker> robots)
         {
-            _lockerList = lockers;
-            _robotList = robots;
+            if (lockers != null)
+            {
+                _lockerList.AddRange(lockers);
+            }
+            if (robots != null)
+            {
+                _lockerList.AddRange(robots);
+            }
         }
         
         public Ticket Store(Bag bag)
         {
-            var lockerTicket = _lockerList.Select(locker => locker.Store(bag)).FirstOrDefault(ticket => ticket != null);
-            return lockerTicket ?? _robotList.Select(robot => robot.Store(bag)).FirstOrDefault(ticket => ticket != null);
+            return _lockerList.Select(locker => locker.Store(bag)).FirstOrDefault(ticket => ticket != null);
         }
 
         public Bag Pick(Ticket ticket)
         {
-            var firstOrDefault = _lockerList.Select(locker => locker.Pick(ticket)).FirstOrDefault(bag => bag != null);
-            return firstOrDefault ?? _robotList.Select(robot => robot.Pick(ticket)).FirstOrDefault(bag => bag != null);
+            return _lockerList.Select(locker => locker.Pick(ticket)).FirstOrDefault(bag => bag != null);
         }
     }
 }
