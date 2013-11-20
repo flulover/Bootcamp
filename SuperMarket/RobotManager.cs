@@ -13,7 +13,6 @@ namespace SuperMarket
             _lockerList = lockers;
             _robotList = robots;
         }
-
         
         public Ticket Store(Bag bag)
         {
@@ -23,16 +22,8 @@ namespace SuperMarket
 
         public Bag Pick(Ticket ticket)
         {
-            foreach (var locker in _lockerList)
-            {
-                var bag = locker.Pick(ticket);
-                if (bag != null)
-                {
-                    return bag;
-                }
-            }
-
-            return _robotList.Select(robot => robot.Pick(ticket)).FirstOrDefault(bag => bag != null);
+            var firstOrDefault = _lockerList.Select(locker => locker.Pick(ticket)).FirstOrDefault(bag => bag != null);
+            return firstOrDefault ?? _robotList.Select(robot => robot.Pick(ticket)).FirstOrDefault(bag => bag != null);
         }
     }
 }
